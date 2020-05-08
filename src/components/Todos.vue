@@ -3,8 +3,23 @@
     <h3>Todos</h3>
     <div class="todos">
         <div v-for="todo in allTodos" :key="todo.id" class="todo">
-          {{ todo.title }}
-          <i @click="deleteTodo(todo.id)" class="fas fa-trash-alt">x</i>
+
+          <!-- content -->
+          <p v-if="todo !== editingMessage">{{ todo.title }}</p>
+          <input v-else v-model="todo.title">
+
+          <!-- actions -->
+          <div class="actions">
+            <div v-if="todo !== editingMessage">
+              <a @click="editMessage(todo)">edit</a>
+              <a @click="deleteTodo(todo.id)">delete</a>
+            </div>
+            <div v-else>
+              <a @click="cancelEditing">cancel</a>
+              <a @click="updateTodo()">update</a>
+            </div>
+
+          </div>
         </div>
     </div>
   </div>
@@ -14,8 +29,24 @@
 import { mapGetters, mapActions } from 'vuex';
 export default {
   name: "Todos",
+  data() {
+    return {
+      editingMessage: null
+    }
+  },
   methods: {
     ...mapActions(['fetchTodos', 'deleteTodo']),
+    editMessage(todo) {
+      this.editingMessage = todo;
+      this.title = todo.text;
+    },
+    cancelEditing() {
+      this.editingMessage = null;
+    },
+    updateTodo() {
+      this.editingMessage = null;
+      // call your store here
+    },
   },
   computed: mapGetters(['allTodos']),
   created() {
@@ -25,6 +56,9 @@ export default {
 </script>
 
 <style scoped>
+a {
+  margin: 0 2px;
+}
 .todos {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -39,9 +73,9 @@ export default {
   position: relative;
   cursor: pointer;
 }
-i {
+.actions {
   position: absolute;
-  bottom: 10px;
+  bottom: 5px;
   right: 10px;
   color: #fff;
   cursor: pointer;
