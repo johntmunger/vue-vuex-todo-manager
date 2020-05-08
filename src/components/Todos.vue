@@ -15,8 +15,7 @@
               <a @click="deleteTodo(todo.id)">delete</a>
             </div>
             <div v-else>
-              <a @click="cancelEditing">cancel</a>
-              <a @click="updateTodo()">update</a>
+              <a @click="updateTodo(todo.id), cancelEditing()">update</a>
             </div>
 
           </div>
@@ -35,18 +34,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchTodos', 'deleteTodo']),
+    ...mapActions(['fetchTodos', 'deleteTodo', 'updateTodo']),
     editMessage(todo) {
       this.editingMessage = todo;
       this.title = todo.text;
     },
     cancelEditing() {
       this.editingMessage = null;
-    },
-    updateTodo() {
-      this.editingMessage = null;
-      // call your store here
-    },
+    }
   },
   computed: mapGetters(['allTodos']),
   created() {

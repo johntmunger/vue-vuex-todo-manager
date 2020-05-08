@@ -5,20 +5,22 @@ new Server({
     server.db.loadData({
       todos: [
         {
+          "title": "Clean the garage",
+        },
+        {
+          "title": "Pick up dad from airport",
+        },
+        {
           "title": "Mow the lawn",
-          "completed": false
         },
         {
           "title": "Go get pizza and beers",
-          "completed": false
         },
         {
           "title": "Clean the porch",
-          "completed": false
         },
         {
           "title": "Code some more",
-          "completed": false
         }
       ]
     })
@@ -35,21 +37,20 @@ new Server({
       console.log('request', todo);
 
       return schema.db.todos.insert({
-        'title': todo.title,
-        'completed': false,
+        'title': todo.title
       });
-    });
-
-    this.patch('/todos/:id', (schema, request) => {
-      const todo = JSON.parse(request.requestBody);
-
-      console.log('UPDATE FROM BACKEND', request, todo);
-      return schema.db.todos.update(todo.id);
     });
 
     this.delete('/todos/:id', (schema, request) => {
       console.log('delete', request.params.id);
+
       return schema.db.todos.remove(request.params.id)
+    });
+
+    this.patch('/todos/:id', (schema, request) => {
+      console.log('delete', request.params.id);
+
+      return schema.db.todos.update(request.params.id)
     });
   }
 });
