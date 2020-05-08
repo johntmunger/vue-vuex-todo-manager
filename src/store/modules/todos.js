@@ -10,20 +10,23 @@ const getters = {
 
 const actions = {
   async fetchTodos({ commit }) {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/todos?_limit=27');
+    const response = await axios.get('/api/todos');
+    console.log('fetch', response.data);
 
     commit('setTodos', response.data);
   },
 
   async addTodo( { commit }, title) {
-    const response = await axios.post('https://jsonplaceholder.typicode.com/todos', {title, completed: false});
+    const response = await axios.post('/api/todos', { title });
 
-    commit('newTodo', response.data)
+    console.log('add', response.data);
+    commit('newTodo', response.data);
   },
 
   async deleteTodo({ commit }, id) {
-    await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+    await axios.delete(`/api/todos/${id}`);
 
+    console.log('delete', id);
     commit('removeTodo', id)
   }
 };
