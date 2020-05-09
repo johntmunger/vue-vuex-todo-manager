@@ -1,14 +1,10 @@
 <template>
   <div id="app">
     <div class="container">
-      <div class="row container d-flex justify-content-center">
+      <div class="justify-content-center">
 
         <!-- jumbotron -->
-        <div class="py-5 text-center">
-          <img class="d-block mx-auto mb-4" src="./assets/logo.png" alt="" width="72" height="72">
-          <h3>Vue and Vuex with Mirage JS</h3>
-          <p class="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
-        </div>
+        <Description />
 
         <!-- todo container -->
         <div class="col-lg-12">
@@ -19,18 +15,21 @@
               </div>
           </div>
         </div>
+
       </div>
   </div>
 </div>
 </template>
 
 <script>
+import Description from './components/Description.vue'
 import Todos from './components/Todos.vue';
 import AddTodo from './components/AddTodo';
 
 export default {
   name: 'App',
   components: {
+    Description,
     AddTodo,
     Todos
   }
@@ -51,9 +50,5 @@ input {
 .container {
   max-width: 940px;
   margin: 0 auto;
-}
-.lead {
-  padding: 0 75px;
-  margin-bottom: -5px;
 }
 </style>
