@@ -1,25 +1,37 @@
 <template>
-  <div>
-    <h3>Todos</h3>
-    <div class="todos">
-        <div v-for="todo in allTodos" :key="todo.id" class="todo">
+  <div class="todos-wrapper">
+    <div class="list-wrapper">
+      <ul class="todo-list">
+        <li v-for="todo in allTodos" :key="todo.id">
+          <div class="form-check"> 
+            <label class="form-check-label d-flex flex-row my-flex-container"> 
 
-          <!-- content -->
-          <p v-if="todo !== editingMessage">{{ todo.title }}</p>
-          <input v-else v-model="todo.title">
+              <!-- actions -->
+              <div class="my-flex-item">
+                <div v-if="todo !== editingMessage">
+                  <button class="btn btn-primary todo-list-btn" @click="editMessage(todo)">Edit</button>
+                  <button class="btn btn-primary todo-list-btn" @click="deleteTodo(todo.id)">Delete</button>
+                </div>
+                <div v-else>
+                  <button class="btn btn-primary todo-list-btn" @click="updateTodo(todo.id), cancelEditing()">Update</button>
+                </div>
+              </div>
 
-          <!-- actions -->
-          <div class="actions">
-            <div v-if="todo !== editingMessage">
-              <a @click="editMessage(todo)">edit</a>
-              <a @click="deleteTodo(todo.id)">delete</a>
-            </div>
-            <div v-else>
-              <a @click="updateTodo(todo.id), cancelEditing()">update</a>
-            </div>
+              <!-- content -->
+              <div class="my-flex-item">
+                <div v-if="todo !== editingMessage">
+                  <div class="todo-list-item" v-if="todo !== editingMessage">{{ todo.title }}</div>
+                  <input class="input-todo-title" v-else v-model="todo.title">
+                </div>
+                <div v-else>
+                  <input type="text" class="input-todo-title" v-model="todo.title">
+                </div>
+              </div>
 
-          </div>
-        </div>
+            </label> 
+          </div> 
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -51,55 +63,43 @@ export default {
 </script>
 
 <style scoped>
-a {
-  margin: 0 2px;
+label {
+  padding: 5px 0;
 }
-.todos {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1rem;
+.card-body {
+  padding: 2rem 1.5rem
 }
-.todo {
-  border: 1px solid #ccc;
-  background: #41b883;
-  padding: 1rem;
-  border-radius: 5px;
-  text-align: center;
-  position: relative;
-  cursor: pointer;
+.form-check {
+  padding-left: 1rem;
 }
-.actions {
-  position: absolute;
-  bottom: 5px;
-  right: 10px;
-  color: #fff;
-  cursor: pointer;
-  font-style: inherit;
+.row {
+  margin-right: 0;
+  margin-left: 0;
+  padding: 0;
 }
-.legend {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 1rem;
+.list-wrapper {
+  margin-top: 12px;
 }
-.complete-box {
+.list-wrapper ul li {
+  padding: .4rem 0;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.input-todo-title {
+  color: gray;
+  margin-left: 5px;
+  padding: 0 5px;
+  width:
+}
+.todo-list-btn {
+  height: 22px;
+  font-size: .625rem;
+  padding: 0 6px;
+  margin: 0 3px 0 0;
   display: inline-block;
-  width: 10px;
-  height: 10px;
-  background: #35495e;
 }
-.incomplete-box {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  background: #41b883;
-}
-.is-complete {
-  background: #35495e;
-  color: #fff;
-}
-@media (max-width: 500px) {
-  .todos {
-    grid-template-columns: 1fr;
-  }
+.todo-list-item {
+  padding-left: 8px;
+  vertical-align: middle;
+  color: #343a40;
 }
 </style>

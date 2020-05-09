@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <h3>Add todo</h3>
+<div class="add-todo">
+  <h4 class="card-title">Awesome Todo list</h4>
+  <div class="add-items"> 
     <form @submit="onSubmit">
-      <input type="text" v-model="title" placeholder="Add Todo" />
-      <input type="submit" placeholder="Submit" />
+      <input type="text" v-model="title" placeholder="What do you need to do today?">
+      <button class="btn btn-primary">Submit</button> 
     </form>
   </div>
+</div>
 </template>
 
 <script>
@@ -22,26 +24,35 @@ export default {
     onSubmit(e) {
       e.preventDefault();
       this.addTodo(this.title);
+      this.title = '';
     }
   }
 }
 </script>
 
 <style scoped>
+h4 {
+  color: #000000;
+  margin: 0.625rem;
+  text-transform: capitalize;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.btn-primary {
+  padding: 0 20px;
+}
 form {
   display: flex;
 }
 input[type="text"] {
   flex: 10;
   padding: 10px;
-  border: 1px solid #41b883;
   outline: 0;
 }
-input[type="submit"] {
+input[type="button"] {
   flex: 2;
   background: #41b883;
   color: #fff;
-  border: 1px #41b883 solid;
   cursor: pointer;
 }
 </style>
