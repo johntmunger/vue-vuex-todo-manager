@@ -1,13 +1,16 @@
 import axios from 'axios';
 
+// state
 const state = {
   todos: []
 };
 
+// getters
 const getters = {
   allTodos: (state) => state.todos
 };
 
+// actions
 const actions = {
   async fetchTodos({ commit }) {
     const response = await axios.get('/api/todos');
@@ -30,11 +33,12 @@ const actions = {
   async updateTodo({ commit }, id) {
     const response = await axios.patch(`/api/todos/${id}`);
 
-    console.log('UPDATE FROM STORE', response);
+    // console.log(response);
     commit('updTodo', response)
   }
 };
 
+// mutations
 const mutations = {
   setTodos: (state, todos) => (state.todos = todos),
   newTodo: (state, todo) => state.todos.unshift(todo),
