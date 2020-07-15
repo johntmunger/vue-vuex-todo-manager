@@ -4,24 +4,12 @@ new Server({
   seeds(server) {
     server.db.loadData({
       todos: [
-        {
-          "title": "Clean the garage",
-        },
-        {
-          "title": "Pick up dad from airport",
-        },
-        {
-          "title": "Mow the lawn",
-        },
-        {
-          "title": "Go get pizza and beers",
-        },
-        {
-          "title": "Clean the porch",
-        },
-        {
-          "title": "Code some more",
-        }
+        { "title": "Clean the garages" },
+        { "title": "Pick up dad from airport" },
+        { "title": "Mow the lawn" },
+        { "title": "Go get pizza and beers" },
+        { "title": "Clean the porch" },
+        { "title": "Code some more" }
       ]
     })
   },
